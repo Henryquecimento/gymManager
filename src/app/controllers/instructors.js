@@ -1,10 +1,11 @@
-const Intl = require("intl");
+const Instructor = require("../models/instructor");
 const { age, date } = require("../../lib/utils");
-const db = require("../../config/db");
 
 module.exports = {
   index(req, res) {
-    return res.render("instructors/index");
+    Instructor.all((instructors) => {
+      return res.render("instructors/index", { instructors });
+    });
   },
   create(req, res) {
     return res.render("instructors/create");
@@ -18,33 +19,23 @@ module.exports = {
       }
     }
 
-    const query = `
-      INSERT INTO instructors (
-        name,
-        avatar_url,
-        gender,
-        services,
-        birth,
-        created_at
-      ) VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING id
-    `;
-    const values = [
-      req.body.name,
-      req.body.avatar_url,
-      req.body.gender,
-      req.body.services,
-      date(req.body.birth).iso,
-      date(Date.now()).iso,
-    ];
-
-    db.query(query, values, (err, results) => {
-      if (err) return res.send("Database Error!");
-
-      return res.redirect(`/instructors/${results.rows[0].id}`);
+    //função com instructoR(singular), porque crio apenas um
+    Instructor.create(req.body, (instructor) => {
+      return res.redirect(`/instructors`);
     });
   },
   show(req, res) {
+    Instructor.find(req.params.id, (instructor) => {
+      if (!instructor) return res.send("Instructor not found!");
+
+      instructor.age = age(instructor.birth);
+      instructor.services = instructor.services.split(",");
+
+      instructor.created_at = date(instructor.created_at).format;
+
+      return res.render("instructors/show", { instructor });
+    });
+
     return;
   },
   edit(req, res) {
