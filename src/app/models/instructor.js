@@ -3,11 +3,16 @@ const { date } = require("../../lib/utils");
 
 module.exports = {
   all(callback) {
-    db.query(`SELECT * FROM instructors`, (err, results) => {
-      if (err) throw `Database Error! ${err}`;
+    db.query(
+      `SELECT * 
+    FROM instructors 
+    ORDER BY name ASC`,
+      (err, results) => {
+        if (err) throw `Database Error! ${err}`;
 
-      callback(results.rows);
-    });
+        callback(results.rows);
+      }
+    );
   },
   create(data, callback) {
     //data é o req.body
@@ -81,7 +86,7 @@ module.exports = {
     db.query(`DELETE FROM instructors WHERE id =$1`, [id], (err, results) => {
       if (err) throw `Database Error! ${err}`;
 
-      callback();
+      return callback();
     });
   },
 };
