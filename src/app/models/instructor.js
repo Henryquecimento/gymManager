@@ -4,7 +4,7 @@ const { date } = require("../../lib/utils");
 module.exports = {
   all(callback) {
     db.query(`SELECT * FROM instructors`, (err, results) => {
-      if (err) return res.send("Database Error!");
+      if (err) throw `Database Error! ${err}`;
 
       callback(results.rows);
     });
@@ -33,7 +33,7 @@ module.exports = {
     ];
 
     db.query(query, values, (err, results) => {
-      if (err) return res.send("Database Error!");
+      if (err) throw `Database Error! ${err}`;
 
       callback(results.rows[0]); //como é apenas um registro, passo apenas a posição 0
     });
@@ -45,7 +45,7 @@ module.exports = {
     WHERE id = $1`,
       [id],
       (err, results) => {
-        if (err) return res.send("Database Error!");
+        if (err) throw `Database Error! ${err}`;
 
         callback(results.rows[0]); //quero apenas um registro, mesmo que venha dois;
       }
@@ -58,7 +58,7 @@ module.exports = {
         name=($2),
         birth=($3),
         gender=($4),
-        services=($5),
+        services=($5)
       WHERE id = $6
     `;
 
@@ -72,7 +72,16 @@ module.exports = {
     ];
 
     db.query(query, values, (err, results) => {
-      if (err) return res.send("Database Error!");
+      if (err) throw `Database Error! ${err}`;
+
+      callback();
+    });
+  },
+  delete(id, callback) {
+    db.query(`DELETE FROM instructors WHERE id =$1`, [id], (err, results) => {
+      if (err) throw `Database Error! ${err}`;
+
+      callback();
     });
   },
 };
