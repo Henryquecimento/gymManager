@@ -3,13 +3,10 @@
 {% block content %}
 
     <div class="card">
-        <section 
-        class="avatar" 
-        style="background: url({{ member.avatar_url }}) no-repeat center center / cover">
-        </section>
+        <section class="avatar" style="background: url({{ member.avatar_url }}) no-repeat center center / cover"></section>
 
         <section class="details">
-            
+
             <h3>Detalhes</h3>
 
             <div class="item">
@@ -26,17 +23,17 @@
                 <div>Aniversário</div>
                 <div>{{ member.birth }}</div>
             </div>
-            
+
             <div class="item">
                 <div>Sexo</div>
                 <div>{{ "Masculino" if member.gender == "M" else "Feminino" }}</div>
-            </div>        
+            </div>
 
             <div class="item">
                 <div>Tipo sanguíneo</div>
                 <div>{{ member.blood }}</div>
             </div>
-               
+
             <div class="item">
                 <div>Peso (kg)</div>
                 <div>{{ member.weight }}</div>
@@ -46,7 +43,12 @@
                 <div>Altura (cm)</div>
                 <div>{{ member.height }}</div>
             </div>
-                        
+
+            <div class="item">
+                <div>Aluno(a) de</div>
+                <div>{{ member.instructor_name }}</div>
+            </div>
+
             <a href="/members/{{ member.id }}/edit" class="button">Editar</a>
 
         </section>
