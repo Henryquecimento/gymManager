@@ -3,9 +3,17 @@ const { blood, date } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    Member.all((members) => {
-      return res.render("members/index", { members });
-    });
+    const { filter } = req.query;
+
+    if (filter) {
+      Member.findBy(filter, (members) => {
+        return res.render("members/index", { members });
+      });
+    } else {
+      Member.all((members) => {
+        return res.render("members/index", { members });
+      });
+    }
   },
   create(req, res) {
     Member.instructorsSelectOptions((options) => {

@@ -65,6 +65,22 @@ module.exports = {
       }
     );
   },
+  findBy(filter, callback) {
+    db.query(
+      `
+      SELECT members.*
+      FROM members
+      LEFT JOIN instructors ON (members.instructor_id = instructors.id)
+      WHERE members.name ILIKE '%${filter}%'
+      GROUP BY members.id
+      ORDER BY members.name ASC`,
+      (err, results) => {
+        if (err) throw `Database Error! ${err}`;
+
+        callback(results.rows);
+      }
+    );
+  },
   update(data, callback) {
     const query = `
       UPDATE members SET
