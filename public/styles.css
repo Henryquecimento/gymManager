@@ -260,6 +260,10 @@ tbody tr td:nth-child(2) span {
   font-size: 12px;
 }
 
+tbody tr td:nth-child(3) {
+  text-align: center;
+}
+
 tbody tr td:last-child a,
 .table-container > a {
   background-color: var(--main-color);
@@ -304,6 +308,7 @@ td:last-child {
 .table-container .header form input {
   padding: 4px 8px;
   border: 1px solid #eee;
+  border-radius: 8px;
   box-sizing: border-box;
 }
 
