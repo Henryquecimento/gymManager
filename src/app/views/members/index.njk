@@ -7,7 +7,7 @@
             <a class="button" href="/members/create">Novo</a>
 
             <form action="/members" method="GET">
-                <input type="text" name="filter" placeholder="Nome">
+                <input type="text" name="filter" placeholder="Nome ou Email">
                 <button type="submit">Filtrar</button>
             </form>
         </div>
@@ -39,6 +39,11 @@
                 {% endfor %}
             </tbody>
         </table>
+            <div class="pagination"
+            data-page={{pagination.page}} 
+            data-total={{pagination.total}}
+            data-filter={{filter}}
+        ></div>
     </div>
 
 {% endblock content %}

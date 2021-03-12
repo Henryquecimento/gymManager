@@ -274,6 +274,11 @@ tbody tr td:last-child a,
   border-radius: 4px;
 }
 
+tbody tr td:last-child a:hover {
+  background-color: #8a70e0;
+  transition: background-color 300ms;
+}
+
 .table-container > a {
   margin-bottom: 16px;
   margin-left: 24px;
@@ -314,4 +319,33 @@ td:last-child {
 
 .table-container .header button {
   margin: 0;
+}
+
+/* -- PAGINATION -- */
+.table-container {
+  display: grid;
+  grid-template: 64px 1fr 16px / 1fr;
+}
+
+.table-container .header {
+  margin: 0;
+  align-self: start;
+}
+
+.table-container .pagination {
+  margin: 0;
+  align-self: end;
+  justify-self: center;
+}
+
+.pagination a,
+.pagination span {
+  color: var(--main-color);
+  text-decoration: none;
+  margin: 8px;
+}
+
+.pagination a:hover {
+  filter: brightness(0.3);
+  border-bottom: 1px solid var(--main-color);
 }

@@ -10,25 +10,23 @@ module.exports = {
     let offset = limit * (page - 1); // it can't be negative, the program crushes
 
     const params = {
+      filter,
       page,
       limit,
       offset,
       callback(instructors) {
-        return res.render("instructors/index", { instructors, filter });
+
+        const pagination = {
+          total: Math.ceil(instructors[0].total / limit),
+          page
+        }
+
+        return res.render("instructors/index", { instructors, pagination, filter });
       },
     };
 
     Instructor.paginate(params);
 
-    /*  if (filter) {
-      Instructor.findBy(filter, (instructors) => {
-        return res.render("instructors/index", { instructors, filter });
-      });
-    } else {
-      Instructor.all((instructors) => {
-        return res.render("instructors/index", { instructors });
-      });
-    } */
   },
   create(req, res) {
     return res.render("instructors/create");
