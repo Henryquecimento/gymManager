@@ -17,7 +17,7 @@ module.exports = {
       callback(members) {
 
         const pagination = {
-          total: Math.ceil(members[0].total / limit),
+          total: members[0] ? Math.ceil(members[0].total / limit) : 0,
           page
         }
 
